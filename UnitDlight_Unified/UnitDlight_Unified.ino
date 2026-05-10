@@ -26,16 +26,6 @@
 uint16_t dlightHold = 0 ;
 
 /**
- * 照度センサの初期化
- * 0x23 はセンサのI2Cアドレス、0x10 は連続ハイレゾリューションモードのコマンド
- */
-void initDlight() {
-  Wire.beginTransmission(0x23);
-  Wire.write(0x10); // Continuously H-Resolution Mode
-  Wire.endTransmission();
-}
-
-/**
  * 照度センサから値を取得
  * 0x23 はセンサのI2Cアドレス、0x10 は連続ハイレゾリューションモードのコマンド
  * 測定時間は約180msで、2バイトのデータを読み取る。取得した値は1.2で割ってルクスに変換する。
@@ -64,7 +54,6 @@ void setup() {
     auto cfg = M5.config();
     M5.begin(cfg);
     Wire.begin(SDA_PIN, SCL_PIN);
-    initDlight() ;
 
     // 表示初期化
     M5.Display.setRotation(1);
@@ -108,7 +97,7 @@ void loop() {
   if (dlightHold != dlight) {
     dlightHold = dlight ;
     // Lx値表示
-    if (dlight >= 0) {
+    if (dlight != 0xFFFF) {
       // 前回表示を消すために黒で上書き
         M5.Display.setTextColor(BLACK);
         M5.Display.setCursor(50, 10);
