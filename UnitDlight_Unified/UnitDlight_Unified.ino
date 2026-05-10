@@ -13,8 +13,8 @@
   #define SDA_PIN 0
   #define SCL_PIN 26
 #elif defined(ARDUINO_M5STACK_STICKC_PLUS2)
-  #define SDA_PIN 32
-  #define SCL_PIN 33
+  #define SDA_PIN 0
+  #define SCL_PIN 26
 #elif defined(ARDUINO_M5STACK_STICKS3)
   #define SDA_PIN 8
   #define SCL_PIN 0
